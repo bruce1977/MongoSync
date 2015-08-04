@@ -22,7 +22,7 @@ def append_arguments(serverConfig):
 
 	return args
 
-f = open('mongo-test.json', 'r')
+f = open('config.json', 'r')
 config = json.load(f);
 
 # 1 is backup and 0 is restore mode
