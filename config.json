@@ -1,0 +1,23 @@
+{
+	"servers":{
+		"source":{
+			"host": "120.24.58.42",
+			"port": "27017",
+			"username": "",
+			"password":"",
+			"databases":["PSPMS", "PSPMS2"]
+		},
+		"target":{
+			"host": "10.10.73.209",
+			"port": "27017",
+			"username": "",
+			"password":"",
+			"databases":"db-doc-test"
+		}
+	},
+	"programs":{
+		"dump":"D:\\apps\\mongodb\\mongodump.exe",
+		"restore":"D:\\apps\\mongodb\\mongorestore.exe"
+	},
+	"output":"D:\\backup\\{$today:%Y%m%d}\\"
+}
