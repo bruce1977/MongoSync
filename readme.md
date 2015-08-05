@@ -1,5 +1,6 @@
 ## OverView
 
+This is simply python script to backup/restore mongodb with json config
 
 ## Usage
 
