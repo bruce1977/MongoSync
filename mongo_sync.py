@@ -27,7 +27,7 @@ def get_databases(serverConfig):
 
 #Return command arguments that defined in config node
 def append_arguments(serverArgs, serverConfig):
-	#init
+	#init variants
 	args = ''
 
 	#append server arguments to command
