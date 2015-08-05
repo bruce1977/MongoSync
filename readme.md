@@ -4,10 +4,10 @@ This is simply python script to backup/restore mongodb with json config
 
 ## Usage
 
-To backuo database we can use following syntax 
+To backup database we can use following syntax 
 > python mongo_sync.py -config config.json
 
-or restore a database
+or restore a database from local folder
 > python mongo_sync.py -r -config config.json
 
 
@@ -19,7 +19,7 @@ It use named configuration file that include server and mongo program info
 
 - -restore or -r
 
-This flag used for restore mode, default is backup mode
+This flag used for restore mode, default is backup mode without this flag
 
 JSON format
 ``` javascript
