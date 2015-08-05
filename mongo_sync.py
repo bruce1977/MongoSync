@@ -7,36 +7,36 @@ import sys
 #Returns a dictionary of arguments in main method
 def get_arguments():
 
-	args = {}
-	for i in range(len(sys.argv)):
-		print(sys.argv[i])
-		if sys.argv[i].startswith('-'):
-			args[sys.argv[i]] = sys.argv[i + 1] if (((i + 1) < len(sys.argv)) and not sys.argv[i + 1].startswith('-')) else sys.argv[i]
-		else:
-			pass
+    args = {}
+    for i in range(len(sys.argv)):
+        print(sys.argv[i])
+        if sys.argv[i].startswith('-'):
+            args[sys.argv[i]] = sys.argv[i + 1] if (((i + 1) < len(sys.argv)) and not sys.argv[i + 1].startswith('-')) else sys.argv[i]
+        else:
+            pass
 
-	return args
+    return args
 
 #Return database list that defined in config node
 def get_databases(serverConfig):
-	databases = serverConfig['databases'] if 'databases' in serverConfig else []	
-	if type(databases) == type(''):
-		return [databases]
-	else:
-		return databases
+    databases = serverConfig['databases'] if 'databases' in serverConfig else []    
+    if type(databases) == type(''):
+        return [databases]
+    else:
+        return databases
 
 #Return command arguments that defined in config node
 def append_arguments(serverArgs, serverConfig):
-	#init variants
-	args = ''
+    #init variants
+    args = ''
 
-	#append server arguments to command
-	for arg in serverArgs:
-		if arg in serverConfig and serverConfig[arg]:
-			format = str.format(' --{} {{', arg) + arg + '}'
-			args += str.format(format, **serverConfig)
+    #append server arguments to command
+    for arg in serverArgs:
+        if arg in serverConfig and serverConfig[arg]:
+            format = str.format(' --{} {{', arg) + arg + '}'
+            args += str.format(format, **serverConfig)
 
-	return args
+    return args
 
 #get arguments in main method
 args = get_arguments()
@@ -63,12 +63,12 @@ serverTarget = serversConfig['target'] if 'target' in serversConfig else serverS
 #create backup/restore command and append arguments
 command = ''
 programs = config['programs']
-if backup_or_restore == 1:	# 1 is backup
-	command = programs['dump']
-	command += append_arguments(serverArgs, serverSource)
-else:						# 0 is restore
-	command = programs['restore']
-	command += append_arguments(serverArgs, serverTarget)
+if backup_or_restore == 1:  # 1 is backup
+    command = programs['dump']
+    command += append_arguments(serverArgs, serverSource)
+else:                       # 0 is restore
+    command = programs['restore']
+    command += append_arguments(serverArgs, serverTarget)
 
 #create dictionary for now that used parse output folder
 out_dict = {'$today': datetime.datetime.now()}
@@ -79,22 +79,22 @@ databaseTarget = get_databases(serverTarget)
 
 for i in range(len(databaseSource) if backup_or_restore == 1 else len(databaseTarget)):
 
-	#generate command line for every database
-	shell = ''
-	if backup_or_restore == 1:
-		if len(databaseSource) > i:		#append backup database and output folder
-			shell = command + str.format(' --db {}', databaseSource[i])
-			shell += str.format(' --out {}', str.format(config['output'], **out_dict))
-	else:
-		if len(databaseTarget) > i:		#append restore database and target folder
-			shell = command + str.format(' --db {}', databaseTarget[i])
-			shell += str.format(' {}\{}\\', str.format(config['output'], **out_dict), databaseSource[i])
+    #generate command line for every database
+    shell = ''
+    if backup_or_restore == 1:
+        if len(databaseSource) > i:     #append backup database and output folder
+            shell = command + str.format(' --db {}', databaseSource[i])
+            shell += str.format(' --out {}', str.format(config['output'], **out_dict))
+    else:
+        if len(databaseTarget) > i:     #append restore database and target folder
+            shell = command + str.format(' --db {}', databaseTarget[i])
+            shell += str.format(' {}\{}\\', str.format(config['output'], **out_dict), databaseSource[i])
 
-	#execute command 
-	try:
-		if shell: 
-			print(shell)
-			stream = os.popen(shell)
-		else: print('invalid shell')
-	except err:
-		print(format(err))
+    #execute command 
+    try:
+        if shell: 
+            print(shell)
+            #stream = os.popen(shell)
+        else: print('invalid shell')
+    except err:
+        print(format(err))
