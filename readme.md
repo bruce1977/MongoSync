@@ -14,9 +14,11 @@ or restore a database
 Arguments
 
 - -config configfile
+
 It use named configuration file that include server and mongo program info
 
 - -restore or -r
+
 This flag used for restore mode, default is backup mode
 
 JSON format
