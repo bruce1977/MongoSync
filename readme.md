@@ -12,36 +12,43 @@ or restore a database
 
 
 Arguments
--config configfile
 
+- -config configfile
+It use named configuration file that include server and mongo program info
 
--restore or -r
-run 
+- -restore or -r
+This flag used for restore mode, default is backup mode
 
 JSON format
 ``` javascript
 {
 	"servers":{
-		"arguments":["host", "port", "username", "password"],	//Used server arguments in command line
-		"source":{												//The source mongodb server used for backup
+		//Used server arguments in command line
+		"arguments":["host", "port", "username", "password"],	
+		//The source mongodb server used for backup
+		"source":{												
 			"host": "xxx.xxx.xxx.xxx",
 			"port": "27017",
 			"username": "",
 			"password":"",
 			"databases":["db1", "db2"]
 		},
-		"target":{												//The target mongodb server used for restore.
-			"host": "xxx.xxx.xxx.xxx",							//It will use source server item for restore if it doesn't exist.
+		//The target mongodb server used for restore.
+		//It will use source server item for restore if it doesn't exist.
+		"target":{												
+			"host": "xxx.xxx.xxx.xxx",							
 			"port": "27017",
 			"username": "",
 			"password":"",
 			"databases":"db1"
 		}
 	},
-	"programs":{											//This script use mongodump and mongorestore to backup/restore
-		"dump":"...\\mongodb\\mongodump.exe",				//We must set the program path of them
+	//This script use mongodump and mongorestore to backup/restore, We must set the program path of them
+	"programs":{										
+		"dump":"...\\mongodb\\mongodump.exe",
 		"restore":"...\\mongodb\\mongorestore.exe"
 	},
-	"output":"..\\backup\\{$today:%Y%m%d}\\"				//Output folder backup/restore, it support date flag
+	//Output folder backup/restore, it support date flag
+	"output":"..\\backup\\{$today:%Y%m%d}\\"
 }
 ```
