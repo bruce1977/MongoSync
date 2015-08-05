@@ -94,7 +94,7 @@ for i in range(len(databaseSource) if backup_or_restore == 1 else len(databaseTa
     try:
         if shell: 
             print(shell)
-            #stream = os.popen(shell)
+            stream = os.popen(shell)
         else: print('invalid shell')
     except err:
         print(format(err))
