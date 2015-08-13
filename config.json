@@ -17,8 +17,8 @@
 		}
 	},
 	"programs":{
-		"dump":"...\\mongodb\\mongodump.exe",
-		"restore":"...\\mongodb\\mongorestore.exe"
+		"dump":"...\\mongodb\\bin\\mongodump.exe",
+		"restore":"...\\mongodb\\bin\\mongorestore.exe"
 	},
 	"output":"..\\backup\\{$today:%Y%m%d}\\"
 }
