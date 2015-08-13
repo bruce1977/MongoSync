@@ -9,7 +9,6 @@ def get_arguments():
 
     args = {}
     for i in range(len(sys.argv)):
-        print(sys.argv[i])
         if sys.argv[i].startswith('-'):
             args[sys.argv[i]] = sys.argv[i + 1] if (((i + 1) < len(sys.argv)) and not sys.argv[i + 1].startswith('-')) else sys.argv[i]
         else:
@@ -93,8 +92,12 @@ for i in range(len(databaseSource) if backup_or_restore == 1 else len(databaseTa
     #execute command 
     try:
         if shell: 
-            print(shell)
-            stream = os.popen(shell)
+            print('start {0} ...'.format('backup' if backup_or_restore == 1 else 'restore'))
+            pipe = os.popen(shell)
+            while 1:
+                line = pipe.readline()
+                if not line: break;
+            print('finished!')
         else: print('invalid shell')
-    except err:
-        print(format(err))
+    except Exception as err:
+        print("{0}".format(err))
