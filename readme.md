@@ -33,6 +33,7 @@ JSON format
 			"port": "27017",
 			"username": "",
 			"password":"",
+			"authenticationDatabase":"",
 			"databases":["db1", "db2"]
 		},
 		//The target mongodb server used for restore.
@@ -42,6 +43,7 @@ JSON format
 			"port": "27017",
 			"username": "",
 			"password":"",
+			"authenticationDatabase":"",
 			"databases":"db1"
 		}
 	},
