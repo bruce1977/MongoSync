@@ -3,6 +3,7 @@ import datetime
 import json
 import os
 import sys
+import subprocess
 
 #Returns a dictionary of arguments in main method
 def get_arguments():
@@ -79,25 +80,25 @@ databaseTarget = get_databases(serverTarget)
 for i in range(len(databaseSource) if backup_or_restore == 1 else len(databaseTarget)):
 
     #generate command line for every database
-    shell = ''
+    popenCmd = ''
     if backup_or_restore == 1:
         if len(databaseSource) > i:     #append backup database and output folder
-            shell = command + str.format(' --db {}', databaseSource[i])
-            shell += str.format(' --out {}', str.format(config['output'], **out_dict))
+            popenCmd = command + str.format(' --db {}', databaseSource[i])
+            popenCmd += str.format(' --out {}', str.format(config['output'], **out_dict))
     else:
         if len(databaseTarget) > i:     #append restore database and target folder
-            shell = command + str.format(' --db {}', databaseTarget[i])
-            shell += str.format(' {}\{}\\', str.format(config['output'], **out_dict), databaseSource[i])
+            popenCmd = command + str.format(' --db {}', databaseTarget[i])
+            popenCmd += str.format(' {}\{}\\', str.format(config['output'], **out_dict), databaseSource[i])
 
     #execute command 
     try:
-        if shell: 
+        if popenCmd: 
             print('start {0} ...'.format('backup' if backup_or_restore == 1 else 'restore'))
-            pipe = os.popen(shell)
-            while 1:
-                line = pipe.readline()
-                if not line: break;
+        
+            proc = subprocess.Popen(popenCmd, stdin=None, stdout=subprocess.PIPE)
+            proc.wait()
+
             print('finished!')
-        else: print('invalid shell')
+        else: print('invalid command')
     except Exception as err:
         print("{0}".format(err))
